@@ -94,7 +94,7 @@ export function ContactEditor({ initial }: { initial: ContactContent }) {
                 label="Link (leave blank for none)"
                 value={method.href ?? ""}
                 onChange={(href) => updateItem(i, { ...method, href: href || null })}
-                placeholder="mailto:hello@cloon.ie"
+                placeholder="mailto:info@cloon.ie"
               />
             </div>
           )}

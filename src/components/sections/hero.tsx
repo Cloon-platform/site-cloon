@@ -19,7 +19,7 @@ export function Hero({ content }: { content: HeroContent }) {
         <FacetField />
       </div>
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 lg:px-8">
+      <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 lg:px-8">
         <Reveal className="max-w-3xl">
           <p className="eyebrow">
             <span className="size-1.5 rounded-full bg-sage" aria-hidden />

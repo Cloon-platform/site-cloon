@@ -39,7 +39,7 @@ export const contactDefault: ContactContent = {
     "If your organisation is facing an operational challenge, planning significant change or would value an experienced independent perspective, I'd welcome the opportunity to understand your business and explore how I can help."
   ),
   methods: [
-    { icon: "mail", label: "Email", value: "hello@cloon.ie", href: "mailto:hello@cloon.ie" },
+    { icon: "mail", label: "Email", value: "info@cloon.ie", href: "mailto:info@cloon.ie" },
     { icon: "linkedin", label: "LinkedIn", value: "Conor Lee", href: "https://www.linkedin.com/" },
     { icon: "mapPin", label: "Based in", value: "Co. Clare, Ireland", href: null },
   ],
@@ -66,7 +66,7 @@ export const footerDefault: FooterContent = {
     { label: "Contact", href: "/#contact" },
   ],
   copyrightName: "Cloon Operations Advisory",
-  email: "hello@cloon.ie",
+  email: "info@cloon.ie",
 };
 
 export const settingsDefault: SettingsContent = {

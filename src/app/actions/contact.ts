@@ -62,7 +62,7 @@ export async function submitContact(
     return {
       status: "error",
       message:
-        "The contact form isn't fully configured yet. Please email hello@cloon.ie directly.",
+        "The contact form isn't fully configured yet. Please email info@cloon.ie directly.",
     };
   }
 
@@ -100,7 +100,7 @@ export async function submitContact(
     console.error("Contact form unexpected error:", err);
     return {
       status: "error",
-      message: "Something went wrong. Please email hello@cloon.ie directly.",
+      message: "Something went wrong. Please email info@cloon.ie directly.",
     };
   }
 }

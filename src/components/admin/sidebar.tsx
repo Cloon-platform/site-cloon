@@ -17,7 +17,7 @@ export async function AdminSidebar() {
   const session = await auth();
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
+    <aside className="sticky top-0 flex h-svh w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
       <div className="flex h-16 items-center border-b border-sidebar-border px-5">
         <Link href="/admin" className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
           <Wordmark variant="compact" />

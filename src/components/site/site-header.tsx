@@ -55,7 +55,7 @@ export function SiteHeader({ content }: { content: NavigationContent }) {
           </Link>
 
           {/* Desktop nav */}
-          <nav aria-label="Primary" className="hidden md:block">
+          <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center gap-1">
               {navItems.map((item) => {
                 const active = isActiveHref(item.href, pathname);
@@ -65,7 +65,7 @@ export function SiteHeader({ content }: { content: NavigationContent }) {
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                        "inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                         active
                           ? "text-foreground"
                           : "text-muted-foreground hover:text-foreground focus-visible:text-foreground"
@@ -84,7 +84,7 @@ export function SiteHeader({ content }: { content: NavigationContent }) {
             href={content.cta.href}
             className={cn(
               buttonVariants({ size: "lg" }),
-              "hidden h-11 rounded-full px-5 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] md:inline-flex"
+              "hidden h-11 shrink-0 whitespace-nowrap rounded-full px-5 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] lg:inline-flex"
             )}
           >
             {content.cta.label}
@@ -99,7 +99,7 @@ export function SiteHeader({ content }: { content: NavigationContent }) {
                   aria-label="Open menu"
                   className={cn(
                     buttonVariants({ variant: "outline", size: "icon" }),
-                    "size-11 rounded-full md:hidden"
+                    "size-11 rounded-full lg:hidden"
                   )}
                 />
               }

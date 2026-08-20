@@ -32,11 +32,11 @@ export function Wordmark({ className, variant = "compact" }: WordmarkProps) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
       <LogoMark decorative className="h-8 w-8 shrink-0" />
-      <span className="flex items-baseline gap-1.5 leading-none">
-        <span className="font-display text-lg font-semibold tracking-tight text-foreground">
+      <span className="flex flex-col justify-center gap-0.5 leading-none">
+        <span className="whitespace-nowrap font-display text-lg font-semibold tracking-tight text-foreground">
           Cloon
         </span>
-        <span className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
           Operations Advisory
         </span>
       </span>
