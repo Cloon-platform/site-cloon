@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { getPublishedContent } from "@/lib/content/queries";
 
@@ -72,6 +73,7 @@ export default function RootLayout({
         {/* Fixed film-grain overlay for editorial paper texture */}
         <div className="grain-overlay" aria-hidden />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
