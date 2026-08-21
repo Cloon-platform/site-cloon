@@ -11,10 +11,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: businessChallenges.seo.metaTitle,
     description: businessChallenges.seo.metaDescription,
+    alternates: { canonical: "/business-challenges" },
     openGraph: {
       title: businessChallenges.seo.metaTitle,
       description: businessChallenges.seo.metaDescription,
       url: "/business-challenges",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: businessChallenges.seo.metaTitle,
+      description: businessChallenges.seo.metaDescription,
     },
   };
 }

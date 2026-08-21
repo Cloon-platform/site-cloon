@@ -11,10 +11,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: myStory.seo.metaTitle,
     description: myStory.seo.metaDescription,
+    alternates: { canonical: "/my-story" },
     openGraph: {
       title: myStory.seo.metaTitle,
       description: myStory.seo.metaDescription,
       url: "/my-story",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: myStory.seo.metaTitle,
+      description: myStory.seo.metaDescription,
     },
   };
 }

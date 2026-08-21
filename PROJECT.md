@@ -41,9 +41,13 @@ src/app/
   business-challenges/page.tsx     Each ~15 lines: getPublishedContent() -> <SiteRenderer
   how-i-work/page.tsx                page="...">, + generateMetadata() from that page's
   my-story/page.tsx                  own `seo` field (title/description/OG)
-  layout.tsx          Fonts, generateMetadata() from CMS settings, dark-mode script, skip link
+  layout.tsx          Fonts, generateMetadata() from CMS settings, dark-mode script, skip
+                      link, renders <StructuredData> (JSON-LD) in <head>
+  privacy/page.tsx    Static (non-CMS) Privacy Policy page — PageHero + plain prose
+  not-found.tsx       Styled 404, noindexed
+  robots.ts / sitemap.ts / opengraph-image.tsx   SEO plumbing (Next metadata-route convention)
   globals.css         ALL design tokens + component classes (see Design system)
-  actions/contact.ts  Public contact form action
+  actions/contact.ts  Public contact form action, rate-limited (email + IP, via rate-limit.ts)
   actions/auth.ts     login/logout/requestPasswordReset/resetPassword (rate-limited)
   actions/content.ts  saveDraft/publish/discardDraft/restoreRevision/listRevisions
   actions/media.ts    listMedia/recordMedia/updateMediaAlt/deleteMedia
@@ -82,6 +86,8 @@ src/components/
                           contract as RichText's per-<p> className)
     site-header.tsx        next/link nav, `usePathname()`-driven active state (exact match;
                           hash/external links never active), logo -> Link href="/"
+    structured-data.tsx    Async server component, emits one JSON-LD `ProfessionalService`
+                          `<script>` tag from published settings/contact/footer content
     Everything else unchanged from pre-restructure (logo, wordmark, facet-field, reveal)
   pages/                  One file per subpage body: business-challenges.tsx, how-i-work.tsx,
                           my-story.tsx — composed from PageHero + section-style bands
@@ -162,7 +168,7 @@ Env template `.env.example`; real values `.env.local` (pull: `vercel env pull .e
 | `CONTACT_TO_EMAIL` | `cormacleespain@gmail.com` TEMPORARY — Resend sandbox only delivers to account owner address. After cloon.ie verified: switch to real inbox, one env change |
 | `CONTACT_FROM_EMAIL` | Unset — code falls back to `onboarding@resend.dev` sandbox sender |
 
-Frontend shows `hello@cloon.ie` everywhere (footer + contact section) — now CMS-editable
+Frontend shows `info@cloon.ie` everywhere (footer + contact section) — now CMS-editable
 via Navigation & Footer, no longer hardcoded.
 
 ## Gotchas (cost real time — respect these)
@@ -232,10 +238,27 @@ deleted, `.env.local` is back to the real `DATABASE_URL`. Full history in
 Site is now 4 pages (`/`, `/business-challenges`, `/how-i-work`, `/my-story`), Admin CMS
 live, zero DB schema migrations for the whole task, build/lint clean throughout.
 
+`feature/site-readiness` (2026-08-21) adds the SEO/security plumbing a "ready to launch"
+site needs: `robots.ts`, `sitemap.ts` (5 routes, including new `/privacy`), a branded OG
+image (`opengraph-image.tsx`), canonical + Twitter card metadata on every page, JSON-LD
+`ProfessionalService` structured data (`src/components/site/structured-data.tsx`), a
+styled `not-found.tsx`, baseline security headers in `next.config.ts`, contact-form rate
+limiting (reuses `login_attempts`/`rate-limit.ts` with namespaced `contact:`/`contact-ip:`
+identifiers), a real LinkedIn profile URL replacing the placeholder, and a static
+`/privacy` page. GA4 and a cookie banner were deliberately skipped — Vercel Analytics is
+already live and cookieless.
+
 ## Open items
 
 - Buy cloon.ie; add to Vercel; verify domain in Resend; set `CONTACT_FROM_EMAIL`
   + real `CONTACT_TO_EMAIL`
+- Submit sitemap to Google Search Console + verify site ownership — blocked until the
+  domain above is live
+- **Separate follow-up PR**: `npm audit` (2026-08-21) found 2 critical + 9 high severity
+  vulnerabilities, notably in `next-auth`/`@auth/core` and `next` itself (fix needs
+  16.2.10 → 16.3.2). Deliberately kept out of `feature/site-readiness` since a Next.js
+  minor bump may carry breaking changes per AGENTS.md — read
+  `node_modules/next/dist/docs/` before attempting it
 - Real photo for Home — Experience (`homeExperience.image`) — currently the facet-mark
   placeholder, same as the old About section always was
 - Possible next: "visual direction v2" branch (mentioned previously; not created)

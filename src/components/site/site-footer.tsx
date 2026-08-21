@@ -37,6 +37,12 @@ export async function SiteFooter({ content }: { content: FooterContent }) {
           <p>
             © {year} {content.copyrightName}. All rights reserved.{" "}
             <Link
+              href="/privacy"
+              className="text-muted-foreground/50 transition-colors hover:text-muted-foreground focus-visible:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              Privacy
+            </Link>{" "}
+            <Link
               href="/login"
               className="text-muted-foreground/50 transition-colors hover:text-muted-foreground focus-visible:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >

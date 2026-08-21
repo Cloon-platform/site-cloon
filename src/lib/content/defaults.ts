@@ -41,7 +41,12 @@ export const contactDefault: ContactContent = {
   ),
   methods: [
     { icon: "mail", label: "Email", value: "info@cloon.ie", href: "mailto:info@cloon.ie" },
-    { icon: "linkedin", label: "LinkedIn", value: "Conor Lee", href: "https://www.linkedin.com/" },
+    {
+      icon: "linkedin",
+      label: "LinkedIn",
+      value: "Conor Lee",
+      href: "https://www.linkedin.com/in/conor-lee-51354413/",
+    },
     { icon: "mapPin", label: "Based in", value: "Co. Clare, Ireland", href: null },
   ],
 };

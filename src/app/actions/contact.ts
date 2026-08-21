@@ -1,7 +1,14 @@
 "use server";
 
+import { headers } from "next/headers";
 import { Resend } from "resend";
 import { z } from "zod";
+
+import { checkRateLimit, recordFailedAttempt } from "@/lib/rate-limit";
+
+const EMAIL_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const EMAIL_LIMIT_MAX_ATTEMPTS = 3;
+const IP_LIMIT_MAX_ATTEMPTS = 10;
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(100),
@@ -53,6 +60,25 @@ export async function submitContact(
   }
 
   const { name, email, company, message } = parsed.data;
+
+  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const emailKey = `contact:${email.toLowerCase()}`;
+  const ipKey = `contact-ip:${ip}`;
+  const [emailOk, ipOk] = await Promise.all([
+    checkRateLimit(emailKey, EMAIL_LIMIT_MAX_ATTEMPTS),
+    checkRateLimit(ipKey, IP_LIMIT_MAX_ATTEMPTS),
+  ]);
+  if (!emailOk || !ipOk) {
+    return {
+      status: "error",
+      message: "Too many messages sent recently. Please try again in a little while.",
+    };
+  }
+  await Promise.all([
+    recordFailedAttempt(emailKey, EMAIL_LIMIT_WINDOW_MS),
+    recordFailedAttempt(ipKey, EMAIL_LIMIT_WINDOW_MS),
+  ]);
+
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL ?? "Cloon Website <onboarding@resend.dev>";

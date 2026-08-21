@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
@@ -5,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { getPublishedContent } from "@/lib/content/queries";
+import { StructuredData } from "@/components/site/structured-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: settings.title,
     description: settings.description,
     metadataBase: new URL("https://cloon.ie"),
+    alternates: { canonical: "/" },
     openGraph: {
       title: settings.ogTitle,
       description: settings.ogDescription,
@@ -37,6 +40,11 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Cloon Operations Advisory",
       locale: "en_IE",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: settings.ogTitle,
+      description: settings.ogDescription,
     },
   };
 }
@@ -63,6 +71,9 @@ export default function RootLayout({
           {/* Without JS, reveal-on-scroll never fires — force content visible. */}
           <style>{`[data-reveal]{opacity:1 !important;transform:none !important;}`}</style>
         </noscript>
+        <Suspense fallback={null}>
+          <StructuredData />
+        </Suspense>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <a
