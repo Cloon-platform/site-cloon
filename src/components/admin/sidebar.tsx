@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, ImageIcon, Compass as SiteDetailsIcon, Menu as NavIcon } from "lucide-react";
+import { LayoutDashboard, ImageIcon, Compass as SiteDetailsIcon, Menu as NavIcon, Rocket } from "lucide-react";
 
 import { auth } from "@/auth";
 import { logout } from "@/app/actions/auth";
@@ -77,6 +77,12 @@ export async function AdminSidebar() {
               <Link href="/admin/settings" className={linkClass}>
                 <SiteDetailsIcon className="mr-2.5 size-4 shrink-0" strokeWidth={1.5} aria-hidden />
                 {sectionMeta.settings.title}
+              </Link>
+            </li>
+            <li>
+              <Link href="/admin/coming-soon" className={linkClass}>
+                <Rocket className="mr-2.5 size-4 shrink-0" strokeWidth={1.5} aria-hidden />
+                {sectionMeta.comingSoon.title}
               </Link>
             </li>
           </ul>

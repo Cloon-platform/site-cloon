@@ -1,6 +1,7 @@
 import { docFromParts, docFromText, inlineDocFromParts } from "./schemas";
 import type {
   BusinessChallengesContent,
+  ComingSoonContent,
   ContactContent,
   FooterContent,
   HeroContent,
@@ -75,6 +76,12 @@ export const settingsDefault: SettingsContent = {
     "Cloon Operations Advisory helps businesses strengthen their supply chain and operations — practical, grounded advisory led by Conor Lee.",
   ogTitle: "Cloon Operations Advisory",
   ogDescription: "Practical supply chain and operations advisory led by Conor Lee.",
+};
+
+export const comingSoonDefault: ComingSoonContent = {
+  enabled: false,
+  heading: "We'll be back soon",
+  message: "We're making some updates to the site. Please check back shortly.",
 };
 
 // Client copy 17 Jul 2026 — home page content, shortening/adaptation permitted here only.
@@ -401,6 +408,7 @@ export const defaults = {
   navigation: navigationDefault,
   footer: footerDefault,
   settings: settingsDefault,
+  comingSoon: comingSoonDefault,
   homeIntro: homeIntroDefault,
   homeExperience: homeExperienceDefault,
   homeTeasers: homeTeasersDefault,

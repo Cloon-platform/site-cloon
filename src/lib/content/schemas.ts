@@ -130,6 +130,13 @@ export const seoSchema = z.object({
 });
 export type SeoContent = z.infer<typeof seoSchema>;
 
+export const comingSoonSchema = z.object({
+  enabled: z.boolean(),
+  heading: shortText(120, "Heading"),
+  message: shortText(300, "Message"),
+});
+export type ComingSoonContent = z.infer<typeof comingSoonSchema>;
+
 /** Shared page-hero shape for the three new subpages. `intro` is optional — My Story's hero has none. */
 const pageHeroSchema = z.object({
   eyebrow: shortText(80, "Eyebrow"),
@@ -253,6 +260,7 @@ export const sectionSchemas = {
   navigation: navigationSchema,
   footer: footerSchema,
   settings: settingsSchema,
+  comingSoon: comingSoonSchema,
   homeIntro: homeIntroSchema,
   homeExperience: homeExperienceSchema,
   homeTeasers: homeTeasersSchema,

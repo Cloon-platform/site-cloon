@@ -29,6 +29,11 @@ export const sectionMeta: Record<
     description: "Page title and description used for search and social sharing.",
     group: "Site",
   },
+  comingSoon: {
+    title: "Coming soon",
+    description: "Show a simple splash page to visitors while the site isn't ready, or during maintenance.",
+    group: "Site",
+  },
   homeIntro: {
     title: "Home — intro band",
     description: "\"Practical Experience. Independent Perspective.\" lead-in.",

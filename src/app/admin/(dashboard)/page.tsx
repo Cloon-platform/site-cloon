@@ -15,6 +15,7 @@ const GROUP_ORDER = ["Homepage", "Pages", "Site"] as const;
 function editHrefFor(key: SectionKey) {
   if (key === "navigation" || key === "footer") return "/admin/navigation";
   if (key === "settings") return "/admin/settings";
+  if (key === "comingSoon") return "/admin/coming-soon";
   return `/admin/sections/${key}`;
 }
 
