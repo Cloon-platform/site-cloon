@@ -6,7 +6,8 @@ Update when architecture/services/conventions change. Compressed on purpose.
 ## What / Who
 
 Marketing site for **Conor Lee**, supply-chain consultant. Trading name **Cloon
-Operations Advisory**, target domain **cloon.ie** (not bought yet). Personal favour
+Operations Advisory**, domain **cloon.ie** — bought, live on Vercel (`www.cloon.ie`),
+verified in Resend for sending (receiving still disabled). Personal favour
 project — NOT Dow Jones/DJP/Andes. Global Andes/Artifactory rules do not apply.
 Four-page public site (`/`, `/business-challenges`, `/how-i-work`, `/my-story`),
 driven entirely by CMS content, plus a full Admin CMS (auth, section editors, media
@@ -168,9 +169,9 @@ Env template `.env.example`; real values `.env.local` (pull: `vercel env pull .e
 | `AUTH_SECRET` | Set all envs; used by Auth.js JWT sessions |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob store `cloon-media` (public access), linked via `vercel blob create-store` |
 | `ADMIN_EMAIL` / `ADMIN_INITIAL_PASSWORD` | One-shot inputs to `npm run db:seed-admin`; remove `ADMIN_INITIAL_PASSWORD` after first run |
-| `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` | Resend via Vercel integration; domain metadata cloon.ie (unverified); also used for password-reset emails |
-| `CONTACT_TO_EMAIL` | `cormacleespain@gmail.com` TEMPORARY — Resend sandbox only delivers to account owner address. After cloon.ie verified: switch to real inbox, one env change |
-| `CONTACT_FROM_EMAIL` | Unset — code falls back to `onboarding@resend.dev` sandbox sender |
+| `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` | Resend via Vercel integration; domain cloon.ie **verified for sending** (2026-08-20); receiving still disabled — also used for password-reset emails |
+| `CONTACT_TO_EMAIL` | `info@cloon.ie` — real inbox, receives mail today |
+| `CONTACT_FROM_EMAIL` | `Cloon Operations Advisory <info@cloon.ie>` |
 
 Frontend shows `info@cloon.ie` everywhere (footer + contact section) — now CMS-editable
 via Navigation & Footer, no longer hardcoded.
@@ -190,6 +191,7 @@ via Navigation & Footer, no longer hardcoded.
 6. **Stray lockfile** at `~/package-lock.json` confused Turbopack root — fixed via
    `turbopack.root` in next.config.ts
 7. Resend test mode: recipients other than account owner get 403 until domain verified
+   (cloon.ie verified 2026-08-20 — no longer applies)
 8. zod v4: `z.email()` top-level, not `z.string().email()`
 9. **Next.js 16 breaking changes** (see `node_modules/next/dist/docs/`): `middleware.ts` →
    `proxy.ts` (Node runtime only, no `edge`); proxy is optimistic-only for auth — the real
@@ -228,6 +230,16 @@ via Navigation & Footer, no longer hardcoded.
 `npm run db:push` / `db:seed` / `db:seed-admin` (drizzle-kit + admin user, reads .env.local) ·
 `npm run lint`
 
+## Current state (2026-08-21)
+
+**Contact form fix.** Production `CONTACT_TO_EMAIL` had been left as an empty string
+(cause unknown — likely cleared during the domain/Vercel setup), so every submission
+failed at the Resend send call with a generic error. Fixed: `CONTACT_TO_EMAIL` and
+`CONTACT_FROM_EMAIL` set to `info@cloon.ie` in Vercel production, redeployed, verified
+by sending a real test email via the Resend API (delivered, confirmed by Conor). Domain
+`cloon.ie` is bought, live on Vercel, and verified in Resend for sending — see updated
+`Services / env` table above.
+
 ## Current state (2026-07-21)
 
 **Shipped.** `feature/client-copy-pages` merged (ff-only) and pushed to `main`; Vercel
@@ -254,10 +266,8 @@ already live and cookieless.
 
 ## Open items
 
-- Buy cloon.ie; add to Vercel; verify domain in Resend; set `CONTACT_FROM_EMAIL`
-  + real `CONTACT_TO_EMAIL`
-- Submit sitemap to Google Search Console + verify site ownership — blocked until the
-  domain above is live
+- Submit sitemap to Google Search Console + verify site ownership — domain is live now,
+  unblocked
 - **Separate follow-up PR**: `npm audit` (2026-08-21) found 2 critical + 9 high severity
   vulnerabilities, notably in `next-auth`/`@auth/core` and `next` itself (fix needs
   16.2.10 → 16.3.2). Deliberately kept out of `feature/site-readiness` since a Next.js
