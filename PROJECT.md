@@ -30,8 +30,12 @@ three subpages (the one place wording may deviate from the source docs).
 - Vercel Blob for media (client-direct upload, bypasses serverless body-size limits)
 - Resend for contact form + password-reset email
 - sonner for admin toasts
-- Deploy: Vercel (`cormac-lees-projects/cloon-operations-advisory`), git push to main auto-deploys
-- GitHub: `cormacleespain-web/cloon-operations-advisory`
+- Deploy: Vercel project `site-cloon` (confirmed via `.vercel/project.json`), git push to
+  `main` on the GitHub repo below auto-deploys
+- GitHub (canonical, `origin` as of 2026-08-21): `Cloon-platform/site-cloon` — this is the
+  repo Vercel is actually linked to. `cormacleespain-web/cloon-operations-advisory` was the
+  prior default remote (personal account); it still exists, kept as remote
+  `cormacleespain-web` for reference, but is no longer where pushes auto-deploy from
 
 ## Layout map
 
