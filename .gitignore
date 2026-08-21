@@ -40,6 +40,9 @@ yarn-error.log*
 # client-supplied source docs, never committed
 /Client Documents/
 
+# generated design exports (Illustrator handoff), regenerate from src/ rather than commit
+/design-assets/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
